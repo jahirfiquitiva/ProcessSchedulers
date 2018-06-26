@@ -61,12 +61,12 @@ abstract class Scheduler {
             if (lastTimeStamp >= quantum || lastTimeStamp >= it.length) {
                 it.end = time + 1
                 onStatusChanged(it, time)
-                pickIt()
+                pickNext()
             }
-        } ?: pickIt()
+        } ?: pickNext()
     }
     
-    private fun pickIt() {
+    private fun pickNext() {
         currentProcess = processes.firstOrNull()
         lastTimeStamp = 0
     }
