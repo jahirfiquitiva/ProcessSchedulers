@@ -11,7 +11,7 @@ class ProcessManager(
                     ) {
     
     companion object {
-        private const val PROCESS_CREATION_DELAY = 3
+        private const val PROCESS_CREATION_DELAY = 2
     }
     
     init {
@@ -52,8 +52,9 @@ class ProcessManager(
         timer?.start()
     }
     
-    fun stop() {
+    fun stop(force: Boolean = false) {
         execute = false
+        if (force) internalStop()
     }
     
     fun executing() = execute

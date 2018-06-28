@@ -30,11 +30,8 @@ abstract class Scheduler {
             if (new.arrival < 0)
                 new.arrival = received
             processes.add(new)
-            when (type) {
-                SchedulerType.ROUND_ROBIN -> processes.sortBy { it.priority }
-                SchedulerType.SJF -> processes.sortBy { it.length }
-                else -> {
-                }
+            if (type == SchedulerType.SJF) {
+                processes.sortBy { it.length }
             }
             val ind = processes.indexOfFirst { it.name.equals(new.name, true) }
             if (ind >= 0) whenAdded(new, ind)
@@ -59,7 +56,7 @@ abstract class Scheduler {
             if (it.start < 0)
                 it.start = time
             if (lastTimeStamp >= quantum || lastTimeStamp >= it.length) {
-                it.end = time + 1
+                it.end = time
                 onStatusChanged(it, time)
                 pickNext()
             }
