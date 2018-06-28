@@ -117,7 +117,7 @@ class LabelPanel(private val m: MainWindow) : JPanel() {
     }
     
     fun updateTime(newTime: String) {
-        timer.text = "Timepo Actual: $newTime"
+        timer.text = "Tiempo Actual: $newTime"
     }
     
     private fun aEvent(event: ActionEvent): Int {
