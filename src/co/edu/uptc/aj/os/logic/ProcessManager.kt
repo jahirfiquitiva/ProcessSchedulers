@@ -84,7 +84,9 @@ class ProcessManager(
         third.checkStatus(secs)
         
         if (!execute) return
-        if ((secs == 0 || secs % PROCESS_CREATION_DELAY == 0) && count < maxProcesses) {
+        
+        val delay = rand.intBetween(1, 3)
+        if ((secs == 0 || secs % delay == 0) && count < maxProcesses) {
             count += 1
             val newProcess = Process(
                 "P$count",

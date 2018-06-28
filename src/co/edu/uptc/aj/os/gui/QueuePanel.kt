@@ -96,7 +96,13 @@ class QueuePanel : JPanel() {
         pane.setBounds(
             0, 0, ProcessRenderer.WIDTH * tableModel.columnCount + (if (cleared) 0 else 1),
             ProcessRenderer.WIDTH - 5)
-        revalidate()
-        repaint()
+        try {
+            revalidate()
+        } catch (e: Exception) {
+        }
+        try {
+            repaint()
+        } catch (e: Exception) {
+        }
     }
 }
