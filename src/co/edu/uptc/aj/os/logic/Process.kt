@@ -1,10 +1,12 @@
 package co.edu.uptc.aj.os.logic
 
 data class Process(val name: String, val length: Int, val priority: Int) {
-    private var currentlyExecuted: Int = 0
+    
+    var timeLeft: Int = length
+        private set
     
     val isFinished
-        get() = currentlyExecuted >= length
+        get() = timeLeft <= 0
     
     var arrival = -1
     val wait: Int
@@ -17,7 +19,7 @@ data class Process(val name: String, val length: Int, val priority: Int) {
     var end = -1
     
     fun reportExecuted(time: Int) {
-        currentlyExecuted += time
+        timeLeft -= time
     }
     
     override fun toString(): String {
