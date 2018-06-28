@@ -2,17 +2,21 @@ package co.edu.uptc.aj.os.gui
 
 import co.edu.uptc.aj.os.gui.base.ProcessRenderer
 import co.edu.uptc.aj.os.gui.base.ProcessTableModel
+import co.edu.uptc.aj.os.gui.base.QueueTable
+import co.edu.uptc.aj.os.ignored
 import co.edu.uptc.aj.os.logic.Process
 import java.awt.Color
+import java.awt.Dimension
 import java.util.ArrayList
 import javax.swing.JPanel
 import javax.swing.JScrollPane
 import javax.swing.JTable
+import kotlin.math.min
 
 class QueuePanel : JPanel() {
     
     private val tableModel: ProcessTableModel
-    private val table: JTable
+    private val table: QueueTable
     private val pane: JScrollPane
     private val processes = ArrayList<Process>()
     
@@ -23,15 +27,23 @@ class QueuePanel : JPanel() {
         background = Color.decode("#00000000")
         
         tableModel = ProcessTableModel(arrayOf(), 0)
-        table = JTable(tableModel)
+        table = QueueTable(tableModel)
         
         table.tableHeader.defaultRenderer = ProcessRenderer()
+        
         table.isOpaque = false
         table.background = Color.decode("#00000000")
+        table.preferredScrollableViewportSize =
+            Dimension(ProcessRenderer.WIDTH * 10, ProcessRenderer.WIDTH)
+        table.autoResizeMode = JTable.AUTO_RESIZE_OFF
+        table.rowSelectionAllowed = false
+        table.columnSelectionAllowed = false
+        table.tableHeader.reorderingAllowed = false
+        table.tableHeader.resizingAllowed = false
         
         pane = JScrollPane(
             table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED)
+            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS)
         pane.isOpaque = false
         pane.background = Color.decode("#00000000")
         updatePane()
@@ -53,7 +65,7 @@ class QueuePanel : JPanel() {
     private fun updateProcesses() {
         clearTable()
         for ((name) in processes) {
-            tableModel.addColumn(name)
+            ignored { tableModel.addColumn(name) }
             updatePane()
         }
     }
@@ -71,38 +83,29 @@ class QueuePanel : JPanel() {
             count += 1
         }
         if (index < 0) return
-        try {
-            processes.removeAt(index)
-        } catch (e: Exception) {
-        }
-        
-        tableModel.removeColumn(index)
+        ignored { processes.removeAt(index) }
+        ignored { tableModel.removeColumn(index) }
         updatePane()
     }
     
     fun clearTable() {
-        var i = 0
-        while (i < table.rowCount) {
-            tableModel.removeRow(i)
-            i -= 1
-            i++
+        for (i in 0 until table.rowCount) {
+            ignored { tableModel.removeRow(0) }
         }
         tableModel.columnCount = 0
-        tableModel.removeColumn(0)
+        ignored { tableModel.removeColumn(0) }
         updatePane(true)
     }
     
     private fun updatePane(cleared: Boolean = false) {
-        pane.setBounds(
-            0, 0, ProcessRenderer.WIDTH * tableModel.columnCount + (if (cleared) 0 else 1),
-            ProcessRenderer.WIDTH - 5)
-        try {
-            revalidate()
-        } catch (e: Exception) {
-        }
-        try {
-            repaint()
-        } catch (e: Exception) {
-        }
+        val maxWidth = min(
+            ProcessRenderer.WIDTH * tableModel.columnCount + (if (cleared) 0 else 1),
+            width)
+        pane.setBounds(0, 0, maxWidth, ProcessRenderer.WIDTH - 5)
+        table.preferredScrollableViewportSize =
+            Dimension(ProcessRenderer.WIDTH * 10, ProcessRenderer.WIDTH)
+        table.autoResizeMode = JTable.AUTO_RESIZE_OFF
+        ignored { revalidate() }
+        ignored { repaint() }
     }
 }

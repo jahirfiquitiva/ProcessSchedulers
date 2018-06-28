@@ -4,7 +4,6 @@ import java.awt.Color
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.Font
-
 import javax.swing.BorderFactory
 import javax.swing.JLabel
 import javax.swing.JTable
@@ -25,12 +24,16 @@ class ProcessRenderer : JLabel(), TableCellRenderer {
     }
     
     init {
-        preferredSize = PERFECT_SIZE
-        maximumSize = PERFECT_SIZE
-        minimumSize = PERFECT_SIZE
+        initSize()
         font = Font("Arial", Font.BOLD, 14)
         foreground = Color.BLACK
         border = BorderFactory.createLineBorder(borderColor, 3)
+    }
+    
+    private fun initSize() {
+        preferredSize = PERFECT_SIZE
+        maximumSize = PERFECT_SIZE
+        minimumSize = PERFECT_SIZE
     }
     
     override fun getTableCellRendererComponent(
@@ -38,12 +41,39 @@ class ProcessRenderer : JLabel(), TableCellRenderer {
         isSelected: Boolean, hasFocus: Boolean, row: Int, column: Int
                                               ): Component {
         text = value.toString().toUpperCase()
+        initSize()
         return this
     }
     
     override fun setText(text: String?) {
         super.setText(text?.toUpperCase())
+        initSize()
         horizontalAlignment = SwingConstants.CENTER
         verticalAlignment = SwingConstants.CENTER
+    }
+    
+    override fun resize(d: Dimension?) {
+        initSize()
+        return
+    }
+    
+    override fun resize(width: Int, height: Int) {
+        initSize()
+        return
+    }
+    
+    override fun repaint() {
+        super.repaint()
+        initSize()
+    }
+    
+    override fun revalidate() {
+        super.revalidate()
+        initSize()
+    }
+    
+    override fun invalidate() {
+        super.invalidate()
+        initSize()
     }
 }

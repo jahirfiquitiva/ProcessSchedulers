@@ -13,3 +13,11 @@ fun Number.round(decimalCount: Int): String {
     formatter.roundingMode = RoundingMode.HALF_UP
     return formatter.format(this)
 }
+
+fun ignored(what: () -> Unit) {
+    try {
+        what()
+    } catch (e: Exception) {
+        // Ignored exception
+    }
+}

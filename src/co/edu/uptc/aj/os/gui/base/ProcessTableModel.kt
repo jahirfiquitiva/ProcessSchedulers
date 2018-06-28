@@ -1,21 +1,9 @@
 package co.edu.uptc.aj.os.gui.base
 
-import java.util.Vector
-
 import javax.swing.table.DefaultTableModel
 
-class ProcessTableModel : DefaultTableModel {
-    constructor() {}
-    
-    constructor(rowCount: Int, columnCount: Int) : super(rowCount, columnCount) {}
-    
-    constructor(columnNames: Vector<*>, rowCount: Int) : super(columnNames, rowCount) {}
-    
-    constructor(columnNames: Array<Any>, rowCount: Int) : super(columnNames, rowCount) {}
-    
-    constructor(data: Vector<*>, columnNames: Vector<*>) : super(data, columnNames) {}
-    
-    constructor(data: Array<Array<Any>>, columnNames: Array<Any>) : super(data, columnNames) {}
+class ProcessTableModel(columnNames: Array<Any>, rowCount: Int) :
+    DefaultTableModel(columnNames, rowCount) {
     
     fun removeColumn(column: Int): Boolean {
         return try {
@@ -30,4 +18,6 @@ class ProcessTableModel : DefaultTableModel {
         }
         
     }
+    
+    override fun isCellEditable(row: Int, column: Int): Boolean = false
 }

@@ -39,6 +39,7 @@ class MainWindow(private var debug: Boolean = false) :
         setSize(670, 600)
         title = "Proyecto Final - Sistemas Operativos"
         setLocationRelativeTo(null)
+        isResizable = false
         defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
         
         val dim = Toolkit.getDefaultToolkit().screenSize
@@ -65,15 +66,15 @@ class MainWindow(private var debug: Boolean = false) :
         val queueX = 30
         
         firstQueuePanel.setQueueColor(Color.decode(FIRST_QUEUE_COLOR))
-        firstQueuePanel.setBounds(queueX, 220, 1000, 40)
+        firstQueuePanel.setBounds(queueX, 220, 600, 40)
         add(firstQueuePanel)
         
         secondQueuePanel.setQueueColor(Color.decode(SECOND_QUEUE_COLOR))
-        secondQueuePanel.setBounds(queueX, 265, 1000, 40)
+        secondQueuePanel.setBounds(queueX, 265, 620, 40)
         add(secondQueuePanel)
         
         thirdQueuePanel.setQueueColor(Color.decode(THIRD_QUEUE_COLOR))
-        thirdQueuePanel.setBounds(queueX, 310, 1000, 40)
+        thirdQueuePanel.setBounds(queueX, 310, 620, 40)
         add(thirdQueuePanel)
         
         val tableTitle = CustomLabel("Tabla de Procesos Terminados")
