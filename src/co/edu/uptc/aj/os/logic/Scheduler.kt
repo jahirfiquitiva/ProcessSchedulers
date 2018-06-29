@@ -32,9 +32,9 @@ abstract class Scheduler {
             processes.add(new)
             if (type == SchedulerType.SJF) {
                 processes.sortBy { it.timeLeft }
-            } else if (type == SchedulerType.ROUND_ROBIN) {
+            } /* else if (type == SchedulerType.ROUND_ROBIN) {
                 processes.sortBy { it.priority }
-            }
+            } */
             val ind = processes.indexOfFirst { it.name.equals(new.name, true) }
             if (ind >= 0) whenAdded(new, ind)
         }
