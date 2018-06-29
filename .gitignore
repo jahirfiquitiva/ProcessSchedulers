@@ -100,4 +100,6 @@ out/
 META-INF
 /META-INF
 META-INF/
-
+*.zip
+ProyectoProcesos.jar
+*.jar
