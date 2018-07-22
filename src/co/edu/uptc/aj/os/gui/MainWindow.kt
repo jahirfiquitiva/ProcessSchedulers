@@ -118,12 +118,12 @@ class MainWindow(private var debug: Boolean = false) :
     }
     
     private fun options(o: Int): Scheduler? {
-        when (o) {
-            1 -> return SJF()
-            2 -> return FiFo()
-            3 -> return RoundRobin()
+        return when (o) {
+            1 -> SJF()
+            2 -> FiFo()
+            3 -> RoundRobin()
+            else -> null
         }
-        return null
     }
     
     fun execute() {

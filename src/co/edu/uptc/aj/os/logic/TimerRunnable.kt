@@ -1,7 +1,6 @@
 package co.edu.uptc.aj.os.logic
 
-open class TimerRunnable(private val onTime: (Long) -> Unit = {}) : Runnable {
-    
+class TimerRunnable(private val onTime: (Long) -> Unit = {}) : Runnable {
     private var canRun = true
     private var start = 0L
     private var current = 0L

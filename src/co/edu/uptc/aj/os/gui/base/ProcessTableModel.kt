@@ -16,7 +16,6 @@ class ProcessTableModel(columnNames: Array<Any>, rowCount: Int) :
         } catch (ignored: Exception) {
             false
         }
-        
     }
     
     override fun isCellEditable(row: Int, column: Int): Boolean = false
